@@ -13,10 +13,21 @@ const createUser =async(data)=>{
     catch(e)
     {
         throw Error("Error "+e)
-    }
-    
+    }    
+}
+
+const findUser=async(name)=>{
+    const users=await User.findAll({
+        where:{
+            name:{
+                [Op.like]:name+"%"
+            }
+        }
+    })
+    return users
 }
 
 module.exports={
-    createUser
+    createUser,
+    findUser
 }

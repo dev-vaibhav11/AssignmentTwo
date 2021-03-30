@@ -34,7 +34,7 @@ const loginUser=async(req,res)=>{
       // console.log(req.body.email,req.body.password)
         const user=await User.findByCredentials(req.body.email,req.body.password)
         //const token=await user.generateAuthToken()
-       console.log(user)
+       //console.log(user)
         res.status(200).json({"token":user.token})
 
     }catch(e){
@@ -64,14 +64,7 @@ const readUser=async(req,res)=>{
 const singleUser=async(req,res)=>{
 
 try{
-const users=await User.findAll({
-        where:{
-            name:{
-                [Op.like]:req.body.name+"%"
-            }
-        }
-    })
-
+const users=await UserService.findUser(req.body.name)
 if(!users)
     {
          //throw new Error("")
