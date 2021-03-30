@@ -68,10 +68,26 @@ const cancelFriendRequest=async(senderId,receiverId)=>{
     }
 }
 
+const myFriendRequest=async(_id)=>{
+    const data = await db.sequelize.query(
+        `SELECT user.name, user.id 
+         FROM users as user,frindrequests as frnd
+         WHERE user.id=frnd.sender_id 
+         AND frnd.status= 0
+         AND frnd.receiver_id = ?`,
+        {
+            type:QueryTypes.SELECT,
+            replacements:[_id]
+        })   
+        return data;
+}
+
+
 module.exports={
     createUser,
     findUser,
     updateUser,
     sendFriendRequest,
-    cancelFriendRequest
+    cancelFriendRequest,
+    myFriendRequest
 }

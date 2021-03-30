@@ -33,7 +33,7 @@ app.patch('/user/update',auth,userctrl.updateUser)
 
 app.post('/send-request',auth,userctrl.sendFriendRequest)
 app.post('/cancel-request',auth,userctrl.cancelFriendRequest)
-app.post('/my-request',auth,userctrl.myFriendRequest)
+app.get('/my-request',auth,userctrl.myFriendRequest)
 app.post('/request-status',auth,userctrl.friendRequestStatus)
 app.get('/my-frinds',auth,userctrl.showAllfriendList)
 

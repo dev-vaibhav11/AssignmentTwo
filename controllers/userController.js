@@ -123,17 +123,9 @@ const myFriendRequest=async(req,res)=>{
     
     try
     {
-        const data = await db.sequelize.query(
-            `SELECT user.name, user.id 
-             FROM users as user,frindrequests as frnd
-             WHERE user.id=frnd.sender_id 
-             AND fr.status= 0
-             AND fr.receiver_id = ?`,
-            {
-                type:QueryTypes.SELECT,
-                replacements:[req.user.id]
-            })
-        res.status(200).json(data)
+        const friendReqList=await UserService.myFriendRequest(req.user.id)
+
+        res.status(200).json(friendReqList)
     }
     catch(e)
     {
