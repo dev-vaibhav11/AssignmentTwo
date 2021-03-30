@@ -57,9 +57,21 @@ const sendFriendRequest=async(senderId,receiverId)=>{
     }
 }
 
+const cancelFriendRequest=async(senderId,receiverId)=>{
+    
+    try{
+    const friend=FriendRequest.findOneAndRemove({sender_id:senderId,receiver_id:receiverId})
+    return friend;
+    }catch(e)
+    {
+        throw Error("Error "+e)
+    }
+}
+
 module.exports={
     createUser,
     findUser,
     updateUser,
-    sendFriendRequest
+    sendFriendRequest,
+    cancelFriendRequest
 }

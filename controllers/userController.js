@@ -99,21 +99,19 @@ const sendFriendRequest=async(req,res)=>{
     try{
        // console.log({sender_id:senderId,receiver_id:receiverId})
         const friend=await UserService.sendFriendRequest(senderId,receiverId)
-                 //const result=await friend.save()
          res.status(200).send(friend)
     }catch(e){
         res.status(500).send()
     }
 }
 
-//cancel friend reqest
+//cancel friend request
 const cancelFriendRequest=async(req,res)=>{
     const senderId=req.user.id
     const receiverId=req.body.id
       
     try{
-        // console.log({sender_id:senderId,receiver_id:receiverId})
-        const friend=await FriendRequest.findOneAndRemove({sender_id:senderId,receiver_id:receiverId})
+        const friend=await UserService.cancelFriendRequest(senderId,receiverId)
          res.status(200).send(friend)
     }catch(e){
         res.status(400).send()
