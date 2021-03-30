@@ -3,6 +3,7 @@ const db=require('../models')
 const User=db.user
 const FriendRequest=db.friendReq
 const bcrypt =require('bcryptjs')
+const UserService=require('../services/userServices')
 
 //create user
 const createUser =async(req,res)=>{
@@ -10,9 +11,9 @@ const createUser =async(req,res)=>{
     try
     {
         req.body.password= await bcrypt.hash(req.body.password,8)
-        // console.log(req.body.password)
-        const user=await User.create(req.body)
-        //console.log(user)
+     //    console.log(req.body.password)
+        const user=await UserService.createUser(req.body)
+       // console.log(user)
         const token= await user.generateAuthToken()
         //console.log(token)
        
