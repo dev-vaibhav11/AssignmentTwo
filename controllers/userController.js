@@ -80,16 +80,9 @@ if(!users)
 const updateUser=async(req,res)=>{
     try
     {
-        const data={
-            name:req.body.name,
-            email:req.body.email,
-            dob:req.body.dob,
-            gender:req.body.gender
-        }
-
-        const user=await Users.update(data,{
-            where:{ id:req.user.id  }
-        })
+        
+        const user=await UserService.updateUser(req.body,req.user.id)
+        
         res.status(200).json(user)
     }
     catch(e)

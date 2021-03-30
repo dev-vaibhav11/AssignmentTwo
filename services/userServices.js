@@ -27,7 +27,23 @@ const findUser=async(name)=>{
     return users
 }
 
+const updateUser=async(body,_id)=>{
+
+    const data={
+            name:body.name,
+            email:body.email,
+            dob:body.dob,
+            gender:body.gender
+        }
+
+        const user=await User.update(data,{
+            where:{ id:_id }
+        })
+        return user
+}
+
 module.exports={
     createUser,
-    findUser
+    findUser,
+    updateUser
 }
