@@ -1,6 +1,7 @@
 const { Sequelize,Op,QueryTypes } = require('sequelize')
 const db=require('../models')
 const User=db.user
+const FriendRequest=db.friendReq
 
 
 //create user
@@ -29,6 +30,7 @@ const findUser=async(name)=>{
 
 const updateUser=async(body,_id)=>{
 
+    try{
     const data={
             name:body.name,
             email:body.email,
@@ -39,11 +41,25 @@ const updateUser=async(body,_id)=>{
         const user=await User.update(data,{
             where:{ id:_id }
         })
-        return user
+        return user;
+    }catch(e){
+        throw Error("Error "+e)
+    }
+}
+
+const sendFriendRequest=async(senderId,receiverId)=>{
+    try{
+        const friend=await FriendRequest.create({sender_id:senderId,receiver_id:receiverId})
+        return friend;
+    }catch(e)
+    {
+        throw Error("Error "+e)
+    }
 }
 
 module.exports={
     createUser,
     findUser,
-    updateUser
+    updateUser,
+    sendFriendRequest
 }

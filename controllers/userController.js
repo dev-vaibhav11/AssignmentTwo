@@ -98,8 +98,8 @@ const sendFriendRequest=async(req,res)=>{
     const receiverId=req.body.id
     try{
        // console.log({sender_id:senderId,receiver_id:receiverId})
-        const friend=await FriendRequest.create({sender_id:senderId,receiver_id:receiverId})
-        //const result=await friend.save()
+        const friend=await UserService.sendFriendRequest(senderId,receiverId)
+                 //const result=await friend.save()
          res.status(200).send(friend)
     }catch(e){
         res.status(500).send()
