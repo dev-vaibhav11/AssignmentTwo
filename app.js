@@ -45,6 +45,8 @@ app.post('/story/image',auth,upload.single('uploadImage'),storyCtrl.addStory)
 
 app.post('/story/readcomment',auth,storyCtrl.readComment)
 app.post('/story/readlike',auth,storyCtrl.readLike)
+app.get('/my-story',auth,storyCtrl.myStories)
+
 
 
 

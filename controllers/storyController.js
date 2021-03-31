@@ -134,11 +134,34 @@ try{
 
 }
 
+//get my all stories
+const myStories=async(req,res)=>{
+
+  try{
+    const data=await db.sequelize.query(
+      `SELECT stories.image,stories.likeCount,stories.commentCount
+      FROM stories
+      WHERE stories.user_id = ?`,
+      {
+        type:QueryTypes.SELECT,
+        replacements:[req.user.id]
+      })
+    
+      res.send(data)
+    
+
+  }catch(e)
+  {
+    res.status(400).send(e)
+  }
+}
+
 module.exports={
   addStory,
   commentPost,
   likePost,
   dislikePost,
   readComment,
-  readLike
+  readLike,
+  myStories
 }
