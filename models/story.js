@@ -21,11 +21,13 @@ module.exports=(sequelize,Datatypes)=>{
         },
         likeCount:
         {
-            type:Datatypes.INTEGER
+            type:Datatypes.INTEGER,
+            defaultValue: 0
         },
         commentCount:
         {
-            type:Datatypes.INTEGER
+            type:Datatypes.INTEGER,
+            defaultValue: 0
         }
         
     })

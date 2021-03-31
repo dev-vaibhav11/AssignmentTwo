@@ -1,13 +1,13 @@
 
 module.exports=(sequelize,Datatypes)=>{
 
-    const Like=sequelize.define('like',{
+    const Like=sequelize.define('Like',{
         like:
         {
             type:Datatypes.BOOLEAN,
             defaultValue: 1
         },
-        post_id:
+        story_id:
         {
             type:Datatypes.INTEGER
         }

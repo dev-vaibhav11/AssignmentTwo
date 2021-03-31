@@ -37,9 +37,9 @@ app.get('/my-request',auth,userctrl.myFriendRequest)
 app.post('/request-status',auth,userctrl.friendRequestStatus)
 app.get('/my-frinds',auth,userctrl.showAllfriendList)
 
-app.post('/comment',auth,storyCtrl.commentPost)
-app.post('/like',auth,storyCtrl.likePost)
-app.post('/dislike',auth,storyCtrl.dislikePost)
+app.post('/story/comment',auth,storyCtrl.commentPost)
+app.post('/story/like',auth,storyCtrl.likePost)
+app.post('/story/unlike',auth,storyCtrl.dislikePost)
 
 
 app.post('/story/image',auth,upload.single('uploadImage'),storyCtrl.addStory)

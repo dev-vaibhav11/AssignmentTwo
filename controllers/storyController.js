@@ -6,7 +6,7 @@ const Comment=db.comment
 const multer=require('multer')
 
   
-
+//post image
 const addStory=async(req,res)=>{
 
 try{
@@ -33,10 +33,15 @@ const commentPost= async(req,res)=>{
   {
       const data=({
           "user_id":req.user.id,
-          "post_id":req.body.post_id,
+          "story_id":req.body.story_id,
           "comment":req.body.comment
       })
       const comment=await Comment.create(data)
+      
+      await Story.update( { commentCount: Sequelize.literal('commentCount + 1') }, //what going to be updated
+      { where: { id:req.body.story_id }} // where clause)  
+      )
+
       res.status(200).send(comment)
   }
   catch(e)
@@ -44,16 +49,22 @@ const commentPost= async(req,res)=>{
       res.status(400).send(e)
   }
 }
+
 //like-----
 const likePost= async(req,res)=>{
   try
   {
       const data={
               "user_id":req.user.id,
-              "post_id":req.body.post_id,
+              "story_id":req.body.story_id,
           }
           const like=await Like.create(data)
-          res.status(200).send(like)
+  
+    await Story.update( { likeCount: Sequelize.literal('likeCount + 1') }, //what going to be updated
+    { where: { id:req.body.story_id }})
+  
+    res.status(200).send(like)
+
   }
   catch(e)
   {
@@ -65,9 +76,13 @@ const likePost= async(req,res)=>{
 const dislikePost= async(req,res)=>{
   try
   {
-      await Like.destroy({where:{ user_id:req.user.id,post_id:req.body.post_id }})
+      await Like.destroy({where:{ user_id:req.user.id,story_id:req.body.story_id }})
       res.status(200).send()
-  }
+ 
+      await Story.update( { likeCount: Sequelize.literal('likeCount - 1') }, //what going to be updated
+      { where: { id:req.body.story_id }})
+   
+    }
   catch(e)
   {
       res.status(400).send(e)

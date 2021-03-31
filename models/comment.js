@@ -1,13 +1,13 @@
 
 module.exports=(sequelize,Datatypes)=>{
 
-    const Comment=sequelize.define('comment',{
+    const Comment=sequelize.define('Comment',{
         comment:
         {
             type:Datatypes.STRING,
             allowNull: false
         },
-        post_id:
+        story_id:
         {
             type:Datatypes.INTEGER
         }
