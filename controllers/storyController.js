@@ -114,12 +114,31 @@ const readComment=async(req,res)=>{
 }
 
 //read Likes on particular post
+const readLike=async(req,res)=>{
+try{
+  const data=await db.sequelize.query(
+  `SELECT users.name
+  FROM likes,users
+  WHERE users.id=likes.user_id
+  AND likes.story_id = ?`,
+  {
+    type:QueryTypes.SELECT,
+    replacements:[req.body.story_id]
+  })
 
+  res.send(data)
+}
+  catch(e){
+    res.status(400).send(e)
+  }
+
+}
 
 module.exports={
   addStory,
   commentPost,
   likePost,
   dislikePost,
-  readComment
+  readComment,
+  readLike
 }

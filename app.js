@@ -44,6 +44,8 @@ app.post('/story/unlike',auth,storyCtrl.dislikePost)
 app.post('/story/image',auth,upload.single('uploadImage'),storyCtrl.addStory)
 
 app.post('/story/readcomment',auth,storyCtrl.readComment)
+app.post('/story/readlike',auth,storyCtrl.readLike)
+
 
 
 app.listen(PORT,()=>{
