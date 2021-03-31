@@ -138,20 +138,19 @@ const friendRequestStatus=async(req,res)=>{
     //0=arrive
     //1=accept
     //2=reject
-    const sender_id=req.body.id
-    const receiver_id=req.user.id
+  
     const status=req.body.status
     
     //console.log(sender_id+"--"+receiver_id+"--"+status)
     let reqStatus
     try{
-        if(status === 1)
+        if(status === "1")
         {
             reqStatus=await FriendRequest.update({status : 1},{
                 where:{ sender_id:req.body.id,receiver_id:req.user.id  }
             })
         }
-        if(status === 2)
+        if(status === "2")
         {
             reqStatus = FriendRequest.destroy({where:{ sender_id:req.body.id,receiver_id:req.user.id }})
         }
@@ -171,14 +170,14 @@ const showAllfriendList=async(req,res)=>{
             `SELECT user.name, user.id 
              FROM users as user,frindrequests as frnd
              WHERE user.id=frnd.sender_id 
-             AND fr.status= 1
-             AND fr.receiver_id = ?`,
+             AND frnd.status= 1
+             AND frnd.receiver_id = ?`,
             {
                 type:QueryTypes.SELECT,
                 replacements:[req.user.id]
             })
         res.status(200).json(data)
-       res.send(allFriendList)
+       //res.send(allFriendList)
     }
     catch(e)
     {

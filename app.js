@@ -41,8 +41,10 @@ app.post('/story/comment',auth,storyCtrl.commentPost)
 app.post('/story/like',auth,storyCtrl.likePost)
 app.post('/story/unlike',auth,storyCtrl.dislikePost)
 
-
 app.post('/story/image',auth,upload.single('uploadImage'),storyCtrl.addStory)
+
+app.post('/story/readcomment',auth,storyCtrl.readComment)
+
 
 app.listen(PORT,()=>{
     console.log("app is Listening on port "+PORT+"!!")

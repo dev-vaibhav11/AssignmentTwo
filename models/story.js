@@ -11,8 +11,7 @@ module.exports=(sequelize,Datatypes)=>{
         description:
         {
             type:Datatypes.STRING,
-            allowNull: false,
-            unique: true
+            allowNull: false
         }
         ,
         user_id:

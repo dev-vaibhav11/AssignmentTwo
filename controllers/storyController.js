@@ -1,4 +1,4 @@
-const { Sequelize,Op } = require('sequelize')
+const { Sequelize,Op,QueryTypes } = require('sequelize')
 const db=require('../models')
 const Story=db.story
 const Like=db.like
@@ -15,7 +15,7 @@ try{
      const post= new Story({
      "image":'imageFolder/'+req.file.originalname,
      "description":req.body.description,
-     "user_id":req.user._id
+     "user_id":req.user.id,
      })
      const post1=await post.save()
      res.send(post1)
@@ -88,9 +88,38 @@ const dislikePost= async(req,res)=>{
       res.status(400).send(e)
   }
 }
+
+//read comment on particular post
+const readComment=async(req,res)=>{
+
+  try{
+    //console.log(req.body.story_id)
+
+    const data = await db.sequelize.query(
+      `SELECT comments.comment,users.name 
+       FROM comments,users 
+       WHERE users.id=comments.user_id
+       AND comments.story_id = ?`,
+      {
+          type:QueryTypes.SELECT,
+          replacements:[req.body.story_id]
+      })
+
+      res.send(data)
+  }catch(e)
+  {
+    res.status(400).send(e)
+  }
+
+}
+
+//read Likes on particular post
+
+
 module.exports={
   addStory,
   commentPost,
   likePost,
-  dislikePost
+  dislikePost,
+  readComment
 }
